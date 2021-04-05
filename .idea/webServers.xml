@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="02cc608f-bf64-4d8d-b0f6-86922883dd2b" name="HETZNER" url="http://corana.s1810456040.student.kwmhgb.at/">
+        <fileTransfer rootFolder="/usr/home/sstud364/public_html/corana/coranaServer" accessType="SFTP" host="dedi50.your-server.de" port="222" sshConfigId="c99032ff-97ef-4b31-857c-aaf9d197a37c" sshConfig="HETZNER">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
