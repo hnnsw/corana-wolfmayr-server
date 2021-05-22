@@ -16,6 +16,8 @@ class CreateVaccinationsTable extends Migration
         Schema::create('vaccinations', function (Blueprint $table) {
             $table->id();
             $table->date('dateOfVaccination');
+            $table->dateTime('fromTime');
+            $table->dateTime('toTime');
             $table->integer('maxParticipants');
             $table->foreignId('location_id')->constrained()->onDelete('cascade');
             $table->timestamps();

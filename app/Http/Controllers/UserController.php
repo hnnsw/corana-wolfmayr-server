@@ -17,8 +17,19 @@ class UserController extends Controller
         return $users;
     }
 
+    /**
+     * get user by id
+     */
+    public function findById(int $id) {
+        $user = User::where('id', $id)->first();
+        return $user;
+    }
+
+    /**
+     * get user by name
+     */
     public function findByName(string $name){
-        $user = User::where('name',$name)->first();
+        $user = User::where('username',$name)->first();
         return $user;
     }
 
@@ -34,10 +45,11 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user = User::create($request->all());
+
             if (isset($request['password'])) {
-                $user->password = bcrypt($request['password']);
-                console.log($request['password']);
+                $request['password'] = bcrypt($request['password']);
             }
+
             DB::commit();
             // return a vaild http response
             return response()->json($user, 201);
@@ -56,7 +68,7 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user = User::all()->where('name', $name)->first();
+            $user = User::all()->where('username', $name)->first();
 
             if ($user != null) {
                 $user->update($request->all());
@@ -64,7 +76,7 @@ class UserController extends Controller
             }
 
             DB::commit();
-            $user1 = User::all()->where('name', $name)->first();
+            $user1 = User::all()->where('username', $name)->first();
             // return a vaild http response
             return response()->json($user1, 201);
         }
@@ -80,7 +92,7 @@ class UserController extends Controller
      */
     public function delete(string $name) : JsonResponse
     {
-        $user = User::where('name', $name)->first();
+        $user = User::where('username', $name)->first();
         if ($user != null) {
             $user->delete();
         }

@@ -12,7 +12,7 @@ class Vaccination extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['dateOfVaccination', 'maxParticipants', 'location_id'];
+    protected $fillable = ['dateOfVaccination', 'fromTime', 'toTime', 'maxParticipants', 'location_id'];
 
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);

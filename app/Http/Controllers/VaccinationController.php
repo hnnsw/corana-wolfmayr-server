@@ -18,6 +18,16 @@ class VaccinationController extends Controller
         return $vaccinations;
     }
 
+    public function findById(int $id) {
+        $vaccination = Vaccination::where('id', $id)->with(['location', 'users'])->first();
+        return $vaccination;
+    }
+
+    public function findVaccinationUserById(int $vaccinationId, string $username) {
+        $vaccination = Vaccination::where('id', $vaccinationId)->with(['location', 'users'])->first();
+        $user = $vaccination->users()->where('username', $username)->first();
+        return $user;
+    }
     /**
      * create new user
      */
@@ -76,7 +86,7 @@ class VaccinationController extends Controller
                 if (isset($request['users']) && is_array($request['users'])) {
                     foreach ($request['users'] as $u) {
                         $user = User::firstOrNew([
-                            'name' => $u['name'],
+                            'username' => $u['username'],
                             'email' => $u['email'],
                             'gender' => $u['gender'],
                             'firstname' => $u['firstname'],
@@ -127,6 +137,13 @@ class VaccinationController extends Controller
         // get date and convert it - its in ISO 8601, e.g. "2018-01-01T23:00:00.000Z"
         $date = new \DateTime($request->dateOfVaccination);
         $request['dateOfBirth'] = $date;
+
+        $fromTime = new \DateTime($request->fromTime);
+        $request['fromTime'] = $fromTime;
+
+        $toTime = new \DateTime($request->toTime);
+        $request['toTime'] = $toTime;
+
         return $request;
     }
 }

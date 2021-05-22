@@ -42,11 +42,11 @@ class LocationController extends Controller
     /*
      * update location
      */
-    public function update(Request $request, string $name) : JsonResponse
+    public function update(Request $request, int $id) : JsonResponse
     {
         DB::beginTransaction();
         try {
-            $location = Location::all()->where('name', $name)->first();
+            $location = Location::all()->where('id', $id)->first();
 
             if ($location != null) {
                 $location->update($request->all());
@@ -54,7 +54,7 @@ class LocationController extends Controller
             }
 
             DB::commit();
-            $location1 = Location::all()->where('name', $name)->first();
+            $location1 = Location::all()->where('id', $id)->first();
             // return a vaild http response
             return response()->json($location1, 201);
         }
